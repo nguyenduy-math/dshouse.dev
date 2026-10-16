@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Introduction</title>
     <style>
+      :root {
+        --text-color: #ffffff;
+        --card-bg: rgba(255, 255, 255, 0.14);
+        --card-border: rgba(255, 255, 255, 0.25);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         margin: 0;
         min-height: 100vh;
@@ -12,17 +22,121 @@
         align-items: center;
         justify-content: center;
         font-family: Arial, sans-serif;
-        background: #f4f4f4;
+        background: linear-gradient(135deg, #0b1021, #7aa8ff);
+        transition: background 1.5s ease, color 1.5s ease;
+      }
+
+      .card {
+        position: relative;
+        padding: 48px 64px;
+        border-radius: 24px;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        overflow: hidden;
+        text-align: center;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        top: -70px;
+        right: -30px;
+        filter: blur(8px);
       }
 
       h1 {
-        font-size: 2rem;
-        color: #222;
-        text-align: center;
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        font-size: clamp(1.8rem, 3vw, 3rem);
+        letter-spacing: 0.08em;
+        color: var(--text-color);
+        text-transform: none;
+        text-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
       }
     </style>
   </head>
   <body>
-    <h1>Nguyen Cao Trong Duy</h1>
+    <div class="card">
+      <h1>Nguyen Cao Trong Duy</h1>
+    </div>
+
+    <script>
+      const stops = [
+        { time: 0, color: [8, 18, 38] },
+        { time: 5, color: [54, 92, 140] },
+        { time: 7, color: [255, 172, 110] },
+        { time: 12, color: [120, 210, 255] },
+        { time: 16, color: [255, 145, 90] },
+        { time: 19, color: [128, 82, 148] },
+        { time: 22, color: [34, 36, 62] },
+        { time: 24, color: [8, 18, 38] }
+      ];
+
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      function mixColors(c1, c2, t) {
+        return c1.map((value, index) => Math.round(lerp(value, c2[index], t)));
+      }
+
+      function getPalette(hour) {
+        for (let i = 0; i < stops.length - 1; i++) {
+          const current = stops[i];
+          const next = stops[i + 1];
+
+          if (hour >= current.time && hour <= next.time) {
+            const range = next.time - current.time || 1;
+            const t = (hour - current.time) / range;
+            return mixColors(current.color, next.color, t);
+          }
+        }
+
+        return stops[0].color;
+      }
+
+      function updateBackground() {
+        const now = new Date();
+        const hour = now.getHours() + now.getMinutes() / 60 + now.getSeconds() / 3600;
+        const top = getPalette(hour);
+        const bottom = getPalette(hour + 0.5);
+
+        const color1 = `rgb(${top[0]}, ${top[1]}, ${top[2]})`;
+        const color2 = `rgb(${bottom[0]}, ${bottom[1]}, ${bottom[2]})`;
+
+        document.body.style.background = `linear-gradient(135deg, ${color1} 0%, ${color2} 100%)`;
+
+        const brightness = (top[0] + top[1] + top[2]) / 3;
+        document.documentElement.style.setProperty(
+          '--text-color',
+          brightness > 160 ? '#132033' : '#ffffff'
+        );
+
+        document.documentElement.style.setProperty(
+          '--card-bg',
+          brightness > 160
+            ? 'rgba(255, 255, 255, 0.28)'
+            : 'rgba(255, 255, 255, 0.14)'
+        );
+
+        document.documentElement.style.setProperty(
+          '--card-border',
+          brightness > 160
+            ? 'rgba(255, 255, 255, 0.45)'
+            : 'rgba(255, 255, 255, 0.25)'
+        );
+      }
+
+      updateBackground();
+      setInterval(updateBackground, 60000);
+    </script>
   </body>
 </html>
