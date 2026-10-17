@@ -60,12 +60,153 @@
         gap: 18px;
       }
 
-      h1 {
-        margin: 0;
-        font-size: clamp(2rem, 4vw, 3rem);
-        letter-spacing: 0.04em;
-        color: var(--text-color);
-        text-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+      .figure {
+        position: relative;
+        width: 220px;
+        height: 280px;
+        margin: 0 auto;
+      }
+
+      .head {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 110px;
+        height: 110px;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background: #f2d1b3;
+        box-shadow: inset 0 -10px 0 rgba(0, 0, 0, 0.05);
+      }
+
+      .head::before,
+      .head::after {
+        content: "";
+        position: absolute;
+        top: 40px;
+        width: 12px;
+        height: 18px;
+        border-radius: 50%;
+        background: #000;
+      }
+
+      .head::before { left: 28px; }
+      .head::after { right: 28px; }
+
+      .hair {
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        width: 120px;
+        height: 48px;
+        transform: translateX(-50%);
+        border-radius: 50% 50% 35% 35%;
+        background: #2a1a12;
+      }
+
+      .body {
+        position: absolute;
+        top: 98px;
+        left: 50%;
+        width: 110px;
+        height: 118px;
+        transform: translateX(-50%);
+        border-radius: 16px 16px 22px 22px;
+        background: #d7e8ff;
+      }
+
+      .body::before,
+      .body::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 22px;
+        height: 90px;
+        background: #d7e8ff;
+        border-radius: 14px;
+      }
+
+      .body::before { left: -28px; transform: rotate(18deg); }
+      .body::after { right: -28px; transform: rotate(-18deg); }
+
+      .arm-left,
+      .arm-right {
+        position: absolute;
+        top: 110px;
+        width: 22px;
+        height: 88px;
+        background: #d7e8ff;
+        border-radius: 14px;
+      }
+
+      .arm-left { left: 44px; transform: rotate(18deg); }
+      .arm-right { right: 44px; transform: rotate(-18deg); }
+
+      .leg-left,
+      .leg-right {
+        position: absolute;
+        bottom: 0;
+        width: 24px;
+        height: 96px;
+        background: #d7e8ff;
+        border-radius: 14px;
+      }
+
+      .leg-left { left: 76px; }
+      .leg-right { right: 76px; }
+
+      .eye-row {
+        position: absolute;
+        top: 42px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 18px;
+        z-index: 2;
+      }
+
+      .eye {
+        position: relative;
+        width: 30px;
+        height: 22px;
+        border-radius: 50%;
+        background: #f9f9f9;
+        border: 2px solid rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .iris {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 12px;
+        height: 12px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #4e8cff 0%, #1d4f9a 28%, #0e2345 58%, #091529 100%);
+      }
+
+      .iris::before {
+        content: "";
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        top: 2px;
+        left: 2px;
+      }
+
+      .mouth {
+        position: absolute;
+        left: 50%;
+        bottom: 18px;
+        width: 42px;
+        height: 18px;
+        transform: translateX(-50%);
+        border-bottom: 4px solid #a85d46;
+        border-radius: 0 0 30px 30px;
       }
 
       .clock {
@@ -75,77 +216,32 @@
         text-transform: uppercase;
         font-weight: 700;
       }
-
-      .eyes {
-        display: flex;
-        gap: 24px;
-        margin-top: 8px;
-      }
-
-      .eye {
-        position: relative;
-        width: 92px;
-        height: 52px;
-        border-radius: 50%;
-        background: #f9f9f9;
-        border: 3px solid rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.14);
-      }
-
-      .iris {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 30px;
-        height: 30px;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        background: radial-gradient(circle at 35% 35%, #4e8cff 0%, #1d4f9a 28%, #0e2345 58%, #091529 100%);
-        box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2);
-        transition: transform 0.08s linear;
-      }
-
-      .iris::before {
-        content: "";
-        position: absolute;
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.9);
-        top: 6px;
-        left: 8px;
-      }
-
-      .pupil {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 14px;
-        height: 14px;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        background: rgba(0, 0, 0, 0.9);
-      }
     </style>
   </head>
   <body>
     <div class="card">
       <div class="content">
-        <div class="eyes" aria-label="eyes">
-          <div class="eye">
-            <div class="iris">
-              <div class="pupil"></div>
+        <div class="figure" aria-label="stylized man">
+          <div class="hair"></div>
+          <div class="head">
+            <div class="eye-row">
+              <div class="eye">
+                <div class="iris"></div>
+              </div>
+              <div class="eye">
+                <div class="iris"></div>
+              </div>
             </div>
+            <div class="mouth"></div>
           </div>
-          <div class="eye">
-            <div class="iris">
-              <div class="pupil"></div>
-            </div>
-          </div>
+
+          <div class="body"></div>
+          <div class="arm-left"></div>
+          <div class="arm-right"></div>
+          <div class="leg-left"></div>
+          <div class="leg-right"></div>
         </div>
 
-        <h1>Nguyen Duy</h1>
         <div id="clock" class="clock">00:00:00</div>
       </div>
     </div>
