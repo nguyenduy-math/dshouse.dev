@@ -1,352 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction</title>
-    <style>
-      :root {
-        --text-color: #ffffff;
-        --card-bg: rgba(255, 255, 255, 0.14);
-        --card-border: rgba(255, 255, 255, 0.25);
-      }
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
 
-      * {
-        box-sizing: border-box;
-      }
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
 
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #0b1021, #7aa8ff);
-        transition: background 1.5s ease, color 1.5s ease;
-      }
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
 
-      .card {
-        position: relative;
-        padding: 36px 42px 28px;
-        border-radius: 28px;
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        overflow: hidden;
-        text-align: center;
-      }
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/">
 
-      .card::before {
-        content: "";
-        position: absolute;
-        width: 220px;
-        height: 220px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.12);
-        top: -80px;
-        right: -30px;
-        filter: blur(8px);
-      }
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
 
-      .content {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 18px;
-      }
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="app">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-      .figure {
-        position: relative;
-        width: 220px;
-        height: 280px;
-        margin: 0 auto;
-      }
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
 
-      .head {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 110px;
-        height: 110px;
-        transform: translateX(-50%);
-        border-radius: 50%;
-        background: #f2d1b3;
-        box-shadow: inset 0 -10px 0 rgba(0, 0, 0, 0.05);
-      }
-
-      .head::before,
-      .head::after {
-        content: "";
-        position: absolute;
-        top: 40px;
-        width: 12px;
-        height: 18px;
-        border-radius: 50%;
-        background: #000;
-      }
-
-      .head::before { left: 28px; }
-      .head::after { right: 28px; }
-
-      .hair {
-        position: absolute;
-        top: -8px;
-        left: 50%;
-        width: 120px;
-        height: 48px;
-        transform: translateX(-50%);
-        border-radius: 50% 50% 35% 35%;
-        background: #2a1a12;
-      }
-
-      .body {
-        position: absolute;
-        top: 98px;
-        left: 50%;
-        width: 110px;
-        height: 118px;
-        transform: translateX(-50%);
-        border-radius: 16px 16px 22px 22px;
-        background: #d7e8ff;
-      }
-
-      .body::before,
-      .body::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        width: 22px;
-        height: 90px;
-        background: #d7e8ff;
-        border-radius: 14px;
-      }
-
-      .body::before { left: -28px; transform: rotate(18deg); }
-      .body::after { right: -28px; transform: rotate(-18deg); }
-
-      .arm-left,
-      .arm-right {
-        position: absolute;
-        top: 110px;
-        width: 22px;
-        height: 88px;
-        background: #d7e8ff;
-        border-radius: 14px;
-      }
-
-      .arm-left { left: 44px; transform: rotate(18deg); }
-      .arm-right { right: 44px; transform: rotate(-18deg); }
-
-      .leg-left,
-      .leg-right {
-        position: absolute;
-        bottom: 0;
-        width: 24px;
-        height: 96px;
-        background: #d7e8ff;
-        border-radius: 14px;
-      }
-
-      .leg-left { left: 76px; }
-      .leg-right { right: 76px; }
-
-      .eye-row {
-        position: absolute;
-        top: 42px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 18px;
-        z-index: 2;
-      }
-
-      .eye {
-        position: relative;
-        width: 30px;
-        height: 22px;
-        border-radius: 50%;
-        background: #f9f9f9;
-        border: 2px solid rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-        box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
-      }
-
-      .iris {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 12px;
-        height: 12px;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        background: radial-gradient(circle at 35% 35%, #4e8cff 0%, #1d4f9a 28%, #0e2345 58%, #091529 100%);
-      }
-
-      .iris::before {
-        content: "";
-        position: absolute;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.9);
-        top: 2px;
-        left: 2px;
-      }
-
-      .mouth {
-        position: absolute;
-        left: 50%;
-        bottom: 18px;
-        width: 42px;
-        height: 18px;
-        transform: translateX(-50%);
-        border-bottom: 4px solid #a85d46;
-        border-radius: 0 0 30px 30px;
-      }
-
-      .clock {
-        font-size: clamp(1rem, 2vw, 1.4rem);
-        color: rgba(255, 255, 255, 0.9);
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        font-weight: 700;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <div class="content">
-        <div class="figure" aria-label="stylized man">
-          <div class="hair"></div>
-          <div class="head">
-            <div class="eye-row">
-              <div class="eye">
-                <div class="iris"></div>
-              </div>
-              <div class="eye">
-                <div class="iris"></div>
-              </div>
-            </div>
-            <div class="mouth"></div>
-          </div>
-
-          <div class="body"></div>
-          <div class="arm-left"></div>
-          <div class="arm-right"></div>
-          <div class="leg-left"></div>
-          <div class="leg-right"></div>
-        </div>
-
-        <div id="clock" class="clock">00:00:00</div>
-      </div>
-    </div>
-
-    <script>
-      const stops = [
-        { time: 0, color: [8, 18, 38] },
-        { time: 5, color: [54, 92, 140] },
-        { time: 7, color: [255, 172, 110] },
-        { time: 12, color: [120, 210, 255] },
-        { time: 16, color: [255, 145, 90] },
-        { time: 19, color: [128, 82, 148] },
-        { time: 22, color: [34, 36, 62] },
-        { time: 24, color: [8, 18, 38] }
-      ];
-
-      function lerp(a, b, t) {
-        return a + (b - a) * t;
-      }
-
-      function mixColors(c1, c2, t) {
-        return c1.map((value, index) => Math.round(lerp(value, c2[index], t)));
-      }
-
-      function getPalette(hour) {
-        for (let i = 0; i < stops.length - 1; i++) {
-          const current = stops[i];
-          const next = stops[i + 1];
-
-          if (hour >= current.time && hour <= next.time) {
-            const range = next.time - current.time || 1;
-            const t = (hour - current.time) / range;
-            return mixColors(current.color, next.color, t);
-          }
-        }
-
-        return stops[0].color;
-      }
-
-      function updateBackground() {
-        const now = new Date();
-        const hour = now.getHours() + now.getMinutes() / 60 + now.getSeconds() / 3600;
-        const top = getPalette(hour);
-        const bottom = getPalette(hour + 0.5);
-
-        const color1 = `rgb(${top[0]}, ${top[1]}, ${top[2]})`;
-        const color2 = `rgb(${bottom[0]}, ${bottom[1]}, ${bottom[2]})`;
-
-        document.body.style.background = `linear-gradient(135deg, ${color1} 0%, ${color2} 100%)`;
-
-        const brightness = (top[0] + top[1] + top[2]) / 3;
-        document.documentElement.style.setProperty(
-          '--text-color',
-          brightness > 160 ? '#132033' : '#ffffff'
-        );
-
-        document.documentElement.style.setProperty(
-          '--card-bg',
-          brightness > 160
-            ? 'rgba(255, 255, 255, 0.28)'
-            : 'rgba(255, 255, 255, 0.14)'
-        );
-
-        document.documentElement.style.setProperty(
-          '--card-border',
-          brightness > 160
-            ? 'rgba(255, 255, 255, 0.45)'
-            : 'rgba(255, 255, 255, 0.25)'
-        );
-      }
-
-      function updateClock() {
-        const now = new Date();
-        const time = now.toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: false
-        });
-        document.getElementById('clock').textContent = time;
-      }
-
-      const eyes = document.querySelectorAll('.eye');
-
-      window.addEventListener('pointermove', (event) => {
-        eyes.forEach((eye) => {
-          const rect = eye.getBoundingClientRect();
-          const centerX = rect.left + rect.width / 2;
-          const centerY = rect.top + rect.height / 2;
-          const dx = event.clientX - centerX;
-          const dy = event.clientY - centerY;
-          const angle = Math.atan2(dy, dx);
-          const maxDistance = rect.width * 0.18;
-          const x = Math.cos(angle) * maxDistance;
-          const y = Math.sin(angle) * maxDistance;
-
-          const iris = eye.querySelector('.iris');
-          iris.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
-        });
-      });
-
-      updateBackground();
-      updateClock();
-      setInterval(updateBackground, 60000);
-      setInterval(updateClock, 1000);
-    </script>
-  </body>
+  <title>app</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
 </html>
